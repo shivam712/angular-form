@@ -1,0 +1,56 @@
+<div class="container">
+  <h2>User Settings</h2>
+  <form #form="ngForm" (ngSubmit)="onSubmit(form)">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input id="name" name="name" class="form-control" [(ngModel)]="usersettings.name"
+      required #nameField="ngModel"
+      [class.field-error]="form.submitted && nameField.invalid"/>
+      <div [hidden]="!form.submitted || nameField.valid" class="alert alert-danger">
+          Enter a name
+      </div>
+    </div>
+    <button type="button" class="btn btn-primary"
+        [(ngModel)]="singleModel" btnCheckbox
+        btnCheckboxTrue="On" btnCheckboxFalse="Off">
+  Single Toggle
+</button>
+    <div class="custom-control custom-checkbox form-group">
+      <input type="checkbox" name="emailOffers" class="custom-control-input" id="customCheck1"  [(ngModel)]="usersettings.emailOffers">
+      <label class="custom-control-label" for="customCheck1">Email special offers</label>
+    </div>
+  <p>User Interface Style</p>
+  <div class="form-group">
+    <div class="btn-group">
+      <label class="btn btn-primary" [(ngModel)]="usersettings.interface"
+             name="interface" btnradio="Light"
+             tabindex="0" role="button">Light</label>
+      <label class="btn btn-primary" [(ngModel)]="usersettings.interface"
+      name="interface" btnradio="Medium"
+             tabindex="0" role="button">Medium</label>
+      <label class="btn btn-primary" [(ngModel)]="usersettings.interface"
+      name="interface" btnradio="Dark"
+             tabindex="0" role="button">Dark</label>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="subscriptionType">Subsciption Type</label>
+    <select class="form-control" name="subscriptionType" id="subscriptionType" [(ngModel)]="usersettings.subscriptionType">
+      <option *ngFor="let type of subscriptionTypes | async">
+        {{type}}
+      </option>
+    </select>
+  </div>
+  <div class="form-group">
+    <label for="notes">Notes</label>
+    <textarea id="notes" name="notes" class="form-control"
+    rows="3" ngModel></textarea>
+  </div>
+  <div [hidden]="!postError" class="alert alert-danger">
+          {{ postErrorMessage   }}
+  </div>
+<button class="btn btn-primary">Save</button>
+  </form>
+  <h3>{{originalUserSettings | json}}</h3>
+</div>
+
